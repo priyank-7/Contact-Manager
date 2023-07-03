@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns="http://www.thymeleaf.org"
+  th:replace="base::Layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section>
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div
+              class="card bg-dark text-white"
+              style="border-radius: 1rem; border-color: #ffcc00"
+            >
+              <div class="card-body p-5 text-center">
+                <div class="mb-md-5 mt-md-4 pb-5">
+                  <div class="mb-5">
+                    <i class="fa-solid fa-user fa-xl" style="color: #ffffff"></i
+                    ><i class="fa-solid fa-plus" style="color: #ffffff"></i>
+                    <h2 class="fw-bold mb-2 text-uppercase">SIGN UP</h2>
+                  </div>
+                  <!-- Alert  -->
+                  <div
+                    th:if="${session.message}"
+                    th:classappend="${session.message.type}"
+                    class="alert"
+                    role="alert"
+                  >
+                    <p th:text="${session.message.content}"></p>
+
+                    <!-- <th:block th:text="${#session.removeAttribute('message')}"></th:block> -->
+                  </div>
+
+                  <form
+                    action=""
+                    th:action="@{/do_register}"
+                    method="post"
+                    th:object="${user}"
+                  >
+                    <!-- Name Field  -->
+                    <div class="form-outline form-white mb-4">
+                      <label for="name_field" class="form-label">Name</label>
+                      <input
+                        style="border-color: #ffcc00; background-color: #ffffff"
+                        name="name"
+                        type="text"
+                        id="name_field"
+                        class="form-control"
+                        th:classappend="${#fields.hasErrors('name') ? 'is-invalid' :''}"
+                        required="required"
+                        placeholder="username"
+                        th:value="${user.name}"
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:each="e:${#fields.errors('name')}"
+                        th:text="${e}"
+                      ></div>
+                    </div>
+
+                    <!-- Email Field  -->
+                    <div class="form-outline form-white mb-4">
+                      <label for="email_field" class="form-label">Email</label>
+                      <input
+                        style="border-color: #ffcc00; background-color: #ffffff"
+                        name="email"
+                        type="email"
+                        id="email_field"
+                        class="form-control"
+                        th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                        required="required"
+                        placeholder="email"
+                        th:value="${user.email}"
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:each="e:${#fields.errors('email')}"
+                        th:text="${e}"
+                      ></div>
+                    </div>
+
+                    <!-- Password Field  -->
+                    <div class="form-outline form-white mb-4">
+                      <label for="password_field" class="form-label"
+                        >Password</label
+                      >
+                      <input
+                        style="border-color: #ffcc00; background-color: #ffffff"
+                        name="password"
+                        type="password"
+                        id="password_field"
+                        class="form-control"
+                        placeholder="password"
+                        th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
+                        required="required"
+                      />
+                      <div
+                        class="invalid-feedback"
+                        th:each="e:${#fields.errors('password')}"
+                        th:text="${e}"
+                      ></div>
+                    </div>
+
+                    <!-- About Field  -->
+                    <div class="form-outline form-white mb-4">
+                      <label for="about_field" class="form-label">About</label>
+                      <textarea
+                        style="border-color: #ffcc00; background-color: #ffffff"
+                        name="about"
+                        id="about_field"
+                        rows="2"
+                        class="form-control"
+                        placeholder="write something about you"
+                        th:classappend="${#fields.hasErrors('about') ? 'is-invalid' :''}"
+                        th:text="${user.about}"
+                      >
+                      </textarea>
+                      <div
+                        class="invalid-feedback"
+                        th:each="e:${#fields.errors('about')}"
+                        th:text="${e}"
+                      ></div>
+                    </div>
+
+                    <!-- check Box  -->
+                    <div class="text-center mb-3">
+                      <input
+                        style="border-color: #ffcc00"
+                        class="mt-0"
+                        type="checkbox"
+                        name="agreement"
+                        aria-label="Checkbox for following text input"
+                      />
+                      Accept Terms and condition
+                    </div>
+
+                    <div class="container text-center">
+                      <button
+                        class="btn btn-outline-light btn-lg px-5"
+                        style="border-color: #ffcc00"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                      <button
+                        type="reset"
+                        class="btn btn-outline-light btn-lg px-5"
+                        style="border-color: #ffcc00"
+                      >
+                        Reset
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="card-footer text-center">
+                <div>
+                  <p class="mb-0">
+                    you have an account?
+                    <a th:href="@{/signin}" class="text-white-50 fw-bold"
+                      >Log In</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

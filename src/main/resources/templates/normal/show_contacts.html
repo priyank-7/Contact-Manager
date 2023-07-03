@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns="http://www.thymeleaf.org"
+  th:replace="normal/base::Layout(~{::section})"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="text-center mt-3">
+          <div class="container card mt-5 text-center">
+            <h1 class="text-center text-light p-3">CONTACTS</h1>
+          </div>
+
+          <div class="container">
+            <div class="row text-center text-light h5 mt-3 p-3 border" id="table_title">
+              <div class="col-4">Name</div>
+              <div class="col-4">Email</div>
+              <div class="col-4">Phone</div>
+              <!-- <div class="col-3">Actions</div> -->
+            </div>
+
+            <div id="parent_row">
+              <div
+                th:each="c: ${contacts}"
+                class="row text-light h6 d-flex align-item-center justify-content-center p-3"
+                id="table_row"
+              >
+                <div class="col-4 text-start">
+                  <img
+                    th:src="@{'/img/'+${c.image}}"
+                    class="contact_img text-white text-start"
+                    alt="Profile Photo"
+                  />
+                  <a style="text-decoration: none;" th:href="@{'/user/contact/'+${c.cId}}" class="text-end">
+                    <span class="text-light" th:text="${c.name+' '+c.secondName}"></span>
+                  </a>
+                </div>
+                <div class="col-4">
+                  <span th:text="${c.email}"></span>
+                </div>
+                <div class="col-4">
+                  <span th:text="${c.phone}"></span>
+                </div>
+                <!-- <div class="col-3">
+                  <button
+                    style="border: none; border-radius: 0.5rem"
+                    class="btn-sm tbl_btn text-white bg-danger p-3"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    style="border: none; border-radius: 0.5rem"
+                    class="btn-sm tbl_btn text-white bg-primary p-3"
+                  >
+                    Update
+                  </button> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row d-flex align-item-center justify-content-center">
+              <div class="col-4">
+                <nav aria-label="Page navigation example">
+                  <ul id="page_nav" class="pagination text-white">
+                    <li th:if="${currentPage != 0}" class="page-item text-light">
+                      <a
+                        th:href="@{'/user/contacts/'+${currentPage-1}}"
+                        class="page-link p-3 text-light"
+                        href="#"
+                        >Previous</a
+                      >
+                    </li>
+                    <li
+                      th:if="${totalPages != 0}"
+                      th:each="i:${#numbers.sequence(1,totalPages)}"                      
+                      class="page-item"
+                      th:classappend="${(currentPage == (i-1)) ? 'is-active':''}"
+                    >
+                      <a class="page-link p-3" th:href="@{'/user/contacts/'+${i-1}}"
+                        ><span class="text-light" th:text="${i}"></span
+                      ></a>
+                    </li>
+                    <li
+                      th:if="${currentPage+1 != totalPages}"
+                      class="page-item"
+                    >
+                      <a
+                        th:href="@{'/user/contacts/'+${currentPage+1}}"
+                        class="page-link p-3 text-light"
+                        href="#"
+                        >Next</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

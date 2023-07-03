@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org" th:replace="normal/base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+
+        <div class="container-fluid py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col-10 col-md-8 col-lg-8 col-xl-8">
+
+                <!-- alert  -->
+                <div th:if="${session.status}">
+                  <div th:classappend="${'alert-'+session.status.type}" class="alert text-center text-uppercase" role="alert">
+                    <span th:text="${session.status.content}"></span>
+                  </div>
+                  <th:block th:text="${status_remover.removeStatusFromSession('status')}"></th:block>
+                </div>
+
+                <div    
+                  class="card bg-dark text-white"
+                  style="border: none;"
+                >
+                  <div class="card-body p-5">
+                    <div class="mb-md-5 mt-md-4 pb-5">
+                      <div class="mb-5 text-center">
+                        <i class="fa-solid fa-user fa-xl" style="color: #ffffff"></i
+                        ><i class="fa-solid fa-plus" style="color: #ffffff"></i>
+                        <h2 class="fw-bold mb-2 text-uppercase">ADD CONTACT</h2>
+                      </div>
+                      
+
+                      <form
+                        action=""
+                        th:action="@{/user/process-contact}"
+                        method="post"
+                        th:object="${contact}"
+                        enctype="multipart/form-data"
+                      
+                      >
+                        <!-- FIRST Name Field  -->
+                        <div class="row">
+                        <div class="form-outline form-white mb-4 col-6">
+                          <label for="name_field" class="form-label">First Name</label>
+                          <input
+                            name="name"
+                            type="text"
+                            id="name_field"
+                            class="form-control"
+                            required="required"
+                            placeholder="First Name"
+                            style="box-shadow: 0px 0px 50px 0px rgba(161, 161, 161, 0.875) inset;"
+                          />
+                          <!-- <div
+                            class="invalid-feedback"
+                            th:each="e:${#fields.errors('name')}"
+                            th:text="${e}"
+                          ></div> -->
+                        </div>
+    
+                        <!-- Email Field  -->
+                        <div class="form-outline form-white mb-4 col-6">
+                          <label for="secondanem_field" class="form-label">Second Name</label>
+                          <input
+                            name="secondName"
+                            type="text"
+                            id="secondanem_field"
+                            class="form-control"                            
+                            placeholder="Second Name"
+                            style="box-shadow: 0px 0px 50px 0px rgba(161, 161, 161, 0.875) inset;"
+                          />
+                          <!-- <div
+                            class="invalid-feedback"
+                            th:each="e:${#fields.errors('email')}"
+                            th:text="${e}"
+                          ></div> -->
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <!-- work Field  -->
+                        <div class="form-outline form-white mb-4 col-6">
+                          <label for="work_field" class="form-label"
+                            >Proffesion</label
+                          >
+                          <input
+                            name="work"
+                            type="text"
+                            id="work_field"
+                            class="form-control"
+                            placeholder="proffesion"
+                            style="box-shadow: 0px 0px 50px 0px rgba(161, 161, 161, 0.875) inset;"
+                          />
+                          <!-- <div
+                            class="invalid-feedback"
+                            th:each="e:${#fields.errors('password')}"
+                            th:text="${e}"
+                          ></div> -->
+                        </div>
+    
+                        <!-- EMail Field  -->
+                        <div class="form-outline form-white mb-4 col-6">
+                            <label for="email_field" class="form-label"
+                              >Email</label
+                            >
+                            <input
+                              name="email"
+                              type="text"
+                              id="email_field"
+                              class="form-control"
+                              placeholder="email"
+                              style="box-shadow: 0px 0px 50px 0px rgba(161, 161, 161, 0.875) inset;"
+                            />
+                            <!-- <div
+                              class="invalid-feedback"
+                              th:each="e:${#fields.errors('password')}"
+                              th:text="${e}"
+                            ></div> -->
+                          </div>
+                        </div>
+
+                        <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="number_field" class="form-label">
+                                Mobile Number
+                            </label>
+                            <input 
+                            name="phone"
+                            type="text" 
+                            class="form-control" 
+                            id="number_field" 
+                            required="required"
+                            placeholder="number"                          
+                            style="box-shadow: 0px 0px 50px 0px rgba(161, 161, 161, 0.875) inset;"
+                            >
+                          </div>
+
+
+                        <div class="mb-3 col-6">
+                            <label for="formFile" class="form-label">
+                                Profile Image
+                            </label>
+                            <input 
+                            class="form-control" 
+                            type="file"
+                            name="profileImage"
+                            id="formFile"
+                            style="box-shadow: 0px 0px 50px 0px rgba(161, 161, 161, 0.875) inset;"
+                            >
+                          </div>
+                        </div>
+
+
+
+                        <!-- About Field  -->
+                        <div class="form-outline form-white mb-4">
+                          <label for="mytextarea" class="form-label">Contact Description</label>
+                          <textarea
+                            name="description"
+                            id="mytextarea"
+                            rows="2"
+                            class="form-control"
+                            placeholder="contact description"
+                            style="box-shadow: 0px 0px 50px 0px rgba(161, 161, 161, 0.875) inset;"
+                          >
+                          </textarea>
+                          <!-- <div
+                            class="invalid-feedback"
+                            th:each="e:${#fields.errors('about')}"
+                            th:text="${e}"
+                          ></div> -->
+                        </div>
+                            
+    
+                        <div class="container text-center">
+                          <button
+                          id="form-btn"
+                            class="btn btn-outline-light btn-lg px-5"                            
+                            type="submit"
+                          >
+                            Add
+                          </button>                          
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <!-- <div class="card-footer text-center">
+                    <div>
+                      <p class="mb-0">
+                        you have an account?
+                        <a th:href="@{/signin}" class="text-white-50 fw-bold"
+                          >Log In</a
+                        >
+                      </p>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+          <script>
+            tinymce.init({
+              selector: '#mytextarea'
+            });
+          </script>
+    </section>
+</body>
+</html>
